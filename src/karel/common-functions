@@ -1,0 +1,40 @@
+
+def move4():
+    for x in range(4):
+        move()
+
+
+def face_up():
+   while(not_facing_north()):
+        turn_left()
+
+
+def face_down():
+    while(not_facing_south()):
+        turn_left()
+
+def face_right():
+    while(not_facing_east()):
+        turn_left()
+
+def face_left():
+    while(not_facing_west()):
+        turn_left()     
+		
+# When placed on top of a 'hole' goes in places a beeper, comes out, turns right, and moves one place over to next if there is place
+def fill_hole():
+    turn_right()
+    move()
+    put_beeper()
+    turn_left()
+    turn_left()
+    move()
+    turn_right()
+    if(front_is_clear()):
+        move()
+
+# turn right by making 3 turn lefts
+def turn_right():
+    turn_left()
+    turn_left()
+    turn_left()		
