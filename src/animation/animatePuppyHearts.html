@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Animated Puppy with Hearts</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- jQuery CDN -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <!-- Foundation CSS CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/css/foundation.min.css">
+  <style>
+    canvas {
+      background: #fff;
+      display: block;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+  <h2 class="text-center">🐶 Puppy with Floating Hearts</h2>
+  <canvas id="puppyCanvas" width="1200" height="1200"></canvas>
+
+  <script>
+    const canvas = document.getElementById('puppyCanvas');
+    const ctx = canvas.getContext('2d');
+    const HEART_COLORS = ["red", "#800020", "pink"];
+    const SPARKLE_COLORS = ["gold", "silver", "brown"];
+    let hearts = [];
+    let step = 0;
+
+    function drawPuppy() {
+      const x = 100;
+
+      // Body
+      ctx.fillStyle = "#F5CBA7";
+      ctx.beginPath();
+      ctx.ellipse(600 + x, 500, 200, 200, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Eyes
+      ctx.fillStyle = "white";
+      ctx.beginPath(); ctx.ellipse(520 + x, 420, 20, 20, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(680 + x, 420, 20, 20, 0, 0, Math.PI * 2); ctx.fill();
+
+      ctx.fillStyle = "black";
+      ctx.beginPath(); ctx.ellipse(520 + x, 420, 5, 5, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(680 + x, 420, 5, 5, 0, 0, Math.PI * 2); ctx.fill();
+
+      // Nose
+      ctx.beginPath();
+      ctx.ellipse(600 + x, 480, 20, 20, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Ears
+      ctx.fillStyle = "#A04000";
+      ctx.beginPath(); ctx.ellipse(400 + x, 325, 50, 75, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(800 + x, 325, 50, 75, 0, 0, Math.PI * 2); ctx.fill();
+
+      // Paws
+      ctx.fillStyle = "#F5CBA7";
+      ctx.beginPath(); ctx.ellipse(500 + x, 740, 60, 40, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(700 + x, 740, 60, 40, 0, 0, Math.PI * 2); ctx.fill();
+
+      // Paw pads
+      ctx.fillStyle = "black";
+      [515, 540, 565, 590].forEach(px => {
+        ctx.beginPath(); ctx.ellipse(px + x, 765, 5, 5, 0, 0, Math.PI * 2); ctx.fill();
+      });
+      [655, 680, 705, 730].forEach(px => {
+        ctx.beginPath(); ctx.ellipse(px + x, 765, 5, 5, 0, 0, Math.PI * 2); ctx.fill();
+      });
+    }
+
+    function generateHeartPoints(cx, cy, scale) {
+      const points = [];
+      for (let i = 0; i < 100; i++) {
+        let t = Math.PI - (2 * Math.PI * i / 100);
+        let x = 16 * Math.pow(Math.sin(t), 3);
+        let y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+        points.push({x: cx + scale * x, y: cy - scale * y});
+      }
+      return points;
+    }
+
+    function FloatingHeart(x, y, color, hasSparkles) {
+      this.baseX = x;
+      this.baseY = y;
+      this.color = color;
+      this.hasSparkles = hasSparkles;
+      this.angle = Math.random() * 2 * Math.PI;
+      this.amp = 15 + Math.random() * 15;
+      this.speed = 1.5 + Math.random();
+      this.offset = Math.random() * 2 * Math.PI;
+      this.scale = 2.5;
+      this.update = function(step) {
+        let dy = this.speed * step;
+        let dx = Math.sin(this.angle + this.offset + step * 0.1) * this.amp;
+        const coords = generateHeartPoints(this.baseX + dx, this.baseY + dy, this.scale);
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.moveTo(coords[0].x, coords[0].y);
+        coords.forEach(p => ctx.lineTo(p.x, p.y));
+        ctx.closePath();
+        ctx.fill();
+
+        if (this.hasSparkles) {
+          ctx.fillStyle = SPARKLE_COLORS[step % SPARKLE_COLORS.length];
+          ctx.beginPath(); ctx.ellipse(this.baseX + dx + 5, this.baseY + dy + 5, 3, 3, 0, 0, Math.PI * 2); ctx.fill();
+        }
+      };
+    }
+
+    function spawnHearts() {
+      const baseY = Math.random() * 60;
+      const count = 3 + Math.floor(Math.random() * 2);
+      for (let i = 0; i < count; i++) {
+        let y = baseY + (Math.random() * 80 - 30);
+        let x = 250 + Math.random() * 300;
+        let color = HEART_COLORS[Math.floor(Math.random() * HEART_COLORS.length)];
+        let sparkly = (hearts.length % 7 === 0);
+        hearts.push({heart: new FloatingHeart(x, y, color, sparkly), createdAt: step});
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawPuppy();
+      if (step % 20 === 0) spawnHearts();
+      hearts.forEach(h => h.heart.update(step - h.createdAt));
+      step++;
+      requestAnimationFrame(animate);
+    }
+
+    drawPuppy();
+    animate();
+  </script>
+</body>
+</html>
