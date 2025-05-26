@@ -6,7 +6,7 @@ def sorta_sum(a, b):
     Returns the sum of a and b, unless the sum falls in the forbidden range [10..19],
     in which case it returns 20 instead.
     """
-    #print("val; is :")  # print ("gl1 val; is :", gl1)
+    #print(f"val a {a} + b {b} = {a + b}")  # print ("gl1 val; is :", gl1)
     total = a + b
     if 10 <= total <= 19:
         return 20
