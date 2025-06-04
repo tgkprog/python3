@@ -1,0 +1,18 @@
+  No.   Tool                          Notes                            
+
+  1     Open                          Folder or document icon          
+  2     Save                          Floppy disk or down arrow        
+  3     Save As                       Floppy with pencil or "AS" text  
+  4     Select                        Rectangle selection tool         
+  5     Zoom                          Magnifying glass                 
+  6     Pencil                        Pencil tip                       
+  7     Custom                        Star or gear ( define later)  
+  8     Eraser                        Eraser shape                     
+  9     Color Picker                  Eyedropper                       
+  10    Text Write                    "T" symbol                       
+  11    Zoom/Magnify                  Another magnifier, maybe "+"     
+  12    Color Palette                 2x12 dots                        
+  13    Color Wheel                   Color circle                     
+  14    Open Secondary Image          Folder with small overlay        
+  15    Set size of secondary image   Resize arrows                    
+  16    Thumb/paste secondary image   Small image + paste/hand         
