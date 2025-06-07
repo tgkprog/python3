@@ -133,7 +133,7 @@ def show_lightning_bolts_from_hands(canvas, root, stick_x, stick_y, arm_angle):
     canvas.create_text(
         text_x,
         text_y,
-        text="Open image to edit",
+        text="Open or paste image to edit",
         fill="dark blue",
         font=("Courier", 30)
     )
