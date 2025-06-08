@@ -1,4 +1,5 @@
 import tkinter as tk
+from extn.tooltip import ToolTip
 from tkinter import filedialog, messagebox
 from PIL import Image, ImageTk, ImageGrab
 from ani import run_startup_animation
@@ -9,8 +10,8 @@ import sys
 class PaintApp:
     def __init__(self, root, skip_animation=False):
         self.root = root
-        self.root.title("Invert Crop!")
-        self.root.geometry("850x650")
+        self.root.title("  *** Inverse Crop *** ")
+        self.root.geometry("950x850")
 
         # Load icon safely using absolute path
         self.res_path = os.path.join(os.path.dirname(__file__), "res")
@@ -60,8 +61,18 @@ class PaintApp:
 
         if initial_blank:
             names = ["blank"] * 7
+            tooltips = [""] * 7
         else:
             names = ["open", "save", "paste", "select-region", "inverse-crop", "select-all", "copy"]
+            tooltips = [
+                "Open image",
+                "Save image",
+                "Paste image from clipboard",
+                "Select region",
+                "Inverse crop",
+                "Select all",
+                "Copy to clipboard"
+            ]            
 
         commands = [
             self.open_image,
@@ -75,22 +86,36 @@ class PaintApp:
 
         self.toolbar_buttons = []
 
-        for name, command in zip(names, commands):
+        for name, command, tip  in zip(names, commands, tooltips):
             img = icon(name)
             btn = tk.Button(toolbar, image=img, command=command)
             btn.image = img
             btn.pack(side=tk.LEFT, padx=2, pady=2)
+            ToolTip(btn, tip) 
             self.toolbar_buttons.append(btn)
 
         toolbar.pack(side=tk.TOP, fill=tk.X)
 
     def update_toolbar_icons_to_real(self):
-        names = ["open", "save", "paste", "select-region", "inverse-crop", "select-all", "copy"]
+        from extn.tooltip import ToolTip  # ensure import inside or at top
 
-        for btn, name in zip(self.toolbar_buttons, names):
+        names = ["open", "save", "paste", "select-region", "inverse-crop", "select-all", "copy"]
+        tooltips = [
+            "Open image",
+            "Save image",
+            "Paste image from clipboard",
+            "Select region",
+            "Inverse crop",
+            "Select all",
+            "Copy to clipboard"
+        ]
+
+        for btn, name, tip in zip(self.toolbar_buttons, names, tooltips):
             img = ImageTk.PhotoImage(Image.open(os.path.join(self.res_path, f"{name}.png")).resize((25, 25), Image.LANCZOS))
             btn.configure(image=img)
             btn.image = img
+            ToolTip(btn, tip)  # re-apply tooltip after updating image
+
 
     def create_canvas(self):
         self.canvas = tk.Canvas(self.root, bg="white", cursor="cross")
