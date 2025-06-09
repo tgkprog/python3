@@ -91,18 +91,6 @@ If you select around `2`, `5`, `9` and apply *inverse crop*, you will get:
 
 ---
 
-## Screenshots
-
-_Add a screenshot here showing the app window, toolbar, and inverse crop in action._
-
-Example:
-
-```
-![Inverse Crop Helper Screenshot](screenshot.png)
-```
-
----
-
 ## License
 
 MIT License or personal use — you may modify and share.
