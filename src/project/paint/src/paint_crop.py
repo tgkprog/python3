@@ -23,6 +23,9 @@ class PaintApp:
         self.selection = None
         self.start_x = self.start_y = self.end_x = self.end_y = None
         self.selecting = False
+        
+        # show menu first before animation so no resize later
+        self.create_menu()        
 
         # UI - IMPORTANT ORDER!
         if skip_animation:
@@ -36,9 +39,6 @@ class PaintApp:
         if not skip_animation:
             # Run startup animation
             run_startup_animation(self.canvas, self.root, self.update_toolbar_icons_to_real)
-
-        # Once animation done, show menu
-        self.create_menu()
 
     def create_menu(self):
         menubar = tk.Menu(self.root)
@@ -88,7 +88,7 @@ class PaintApp:
 
         for name, command, tip  in zip(names, commands, tooltips):
             img = icon(name)
-            btn = tk.Button(toolbar, image=img, command=command)
+            btn = tk.Button(toolbar, image=img, command=command, width=30, height=30)
             btn.image = img
             btn.pack(side=tk.LEFT, padx=2, pady=2)
             ToolTip(btn, tip) 

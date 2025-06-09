@@ -94,9 +94,9 @@ def show_lightning_bolts_from_hands(canvas, root, stick_x, stick_y, arm_angle):
     # Target positions
     canvas_width = canvas.winfo_width()
 
-    left_target = (20, 20)
+    left_target = (50, 20)
     middle_target = (canvas_width // 2, 20)
-    right_target = (canvas_width - 20, 20)
+    right_target = (canvas_width - 55, 20)
 
     # Function to animate one bolt
     def animate_bolt(start_x, start_y, target_x, target_y):

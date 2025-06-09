@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual env
+env/
+venv/
+ENV/
+
+# Mac
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Misc
+*.log
