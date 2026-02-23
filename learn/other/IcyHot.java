@@ -44,18 +44,27 @@ public class IcyHot {
 
 	private int count;
 	private int errs;
-
 	/**
-	 * Test helper. This function calls target and checks response - if matches expected.
+	 * General test helper for data and expected value unit test.
 	 *
-	 * Same parameters as target function. Plus the last parameter is the return type of the target function (expected valueo of that test case).
-	 * So if target function has 2 input parameters this function willhave 3. And if target has 3 input params this one will have 4.
-	 * Type and number of parameters can change depending on your question.
-	 * Expected value has to be accurately calculated by you. Your helper function parameters and this example's might not match. The concept should match. 
+	 * Calls the target function with given inputs and verifies that
+	 * the actual result matches the expected result.
 	 *
-	 * This works for this target. But for you is a sample. The actual number of parameters and parameter types,
-	 * for your test helper, will depend on the parameters of your target function, their type and return type.
-	 */
+	 * Notes:
+	 * - Parameters before the last one must match the target function's inputs
+	 *   in both type and order.
+	 * - The last parameter represents the expected return value.
+	 * - If the target function signature changes, this helper’s signature
+	 *   must be updated accordingly.
+	 * - The expected value must be pre-calculated correctly for each test case.
+	 *
+	 * Example below assumes target signature:
+	 *     boolean icyHot(int temp1, int temp2)
+	 * 
+	 * This function works for this target. But for you, its a sample. The actual number of parameters and parameter types,
+	 * for your test helper, will depend on the parameters of your target function, their type and return type.	 
+	 */	
+
 	void testIcyHot(int temp1, int temp2, boolean expectedReturn) {
 		boolean actualReturn = false;
 		count++;
